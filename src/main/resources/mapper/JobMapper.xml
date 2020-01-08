@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huilu.testplatform.mapper.JobMapper">
+
+    <resultMap id="BaseResultMap" type="com.huilu.testplatform.entity.dao.Job">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="job_name" jdbcType="INTEGER" property="jobname"/>
+        <result column="plan_id" jdbcType="INTEGER" property="planid"/>
+        <result column="create_time" jdbcType="DATE" property="createtime"/>
+    </resultMap>
+
+    <!--<insert id="addCronJobs" useGeneratedKeys="true" keyProperty="id">-->
+        <!--INSERT into job (job_name,plan_id,create_time) VALUES-->
+            <!--(#{jobname},#{planid},#{createtime})-->
+        <!--<selectKey keyProperty="id" resultType="java.lang.Integer">-->
+            <!--select LAST_INSERT_ID() as id-->
+        <!--</selectKey>-->
+    <!--</insert>-->
+
+    <insert id="addJob" useGeneratedKeys="true" keyProperty="id" parameterType="com.huilu.testplatform.entity.dao.Job">
+        INSERT into job (job_name,plan_id,create_time) VALUES
+        (#{jobname},#{planid},#{createtime})
+    </insert>
+
+
+</mapper>

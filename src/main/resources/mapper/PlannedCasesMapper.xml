@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huilu.testplatform.mapper.PlannedCasesMapper">
+
+    <resultMap id="BaseResultMap" type="com.huilu.testplatform.entity.dao.PlannedCases">
+        <result column="plan_id" jdbcType="INTEGER" property="planid"/>
+        <result column="case_id" jdbcType="INTEGER" property="caseid"/>
+    </resultMap>
+
+    <insert id="addCases" >
+        INSERT into planned_cases (plan_id,case_id) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.planid},
+            #{item.caseid})
+        </foreach>
+    </insert>
+
+    <delete id="deletePlanedCasesInPlan">
+        delete from planned_cases WHERE
+        <foreach collection="list" item="item" index="index" separator="or">
+            ( plan_id = #{item.planid}
+            and case_id = #{item.caseid} )
+        </foreach>
+    </delete>
+
+    <delete id="deletePlanedCasesByCaseId">
+        delete from planned_cases WHERE
+        case_id = #{caseid}
+    </delete>
+
+    <select id="getByPlan" resultMap="BaseResultMap">
+        select * from planned_cases where plan_id = #{planid}
+    </select>
+
+
+</mapper>

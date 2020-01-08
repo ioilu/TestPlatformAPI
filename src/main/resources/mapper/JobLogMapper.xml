@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huilu.testplatform.mapper.JobLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.huilu.testplatform.entity.dao.JobLog">
+        <result column="case_id" jdbcType="INTEGER" property="caseid"/>
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="plan_id" jdbcType="INTEGER" property="planid"/>
+        <result column="create_time" jdbcType="DATE" property="createtime"/>
+        <result column="job_id" jdbcType="INTEGER" property="jobid"/>
+        <result column="response" jdbcType="VARCHAR" property="response"/>
+    </resultMap>
+
+
+
+
+</mapper>

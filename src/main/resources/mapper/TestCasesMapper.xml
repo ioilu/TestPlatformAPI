@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huilu.testplatform.mapper.TestCasesMapper">
+
+    <resultMap id="BaseResultMap" type="com.huilu.testplatform.entity.dao.TestCases">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="service_id" jdbcType="INTEGER" property="serviceid"/>
+        <result column="api" jdbcType="VARCHAR" property="api"/>
+        <result column="create_time" jdbcType="DATE" property="createtime"/>
+        <result column="update_time" jdbcType="DATE" property="updatetime"/>
+        <result column="case_name" jdbcType="VARCHAR" property="casename"/>
+        <result column="headers" jdbcType="VARCHAR" property="headers"/>
+        <result column="params" jdbcType="VARCHAR" property="params"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="before" jdbcType="VARCHAR" property="before"/>
+        <result column="after" jdbcType="VARCHAR" property="after"/>
+    </resultMap>
+
+    <update id="updateCase" parameterType="com.huilu.testplatform.entity.dao.TestCases">
+        update test_cases
+        <set>
+            <if test="api != null and api != ''">
+                api=#{api},
+            </if>
+            <if test="casename != null and casename != ''">
+                case_name=#{casename},
+            </if>
+            <if test="headers != null">
+                headers=#{headers},
+            </if>
+            <if test="updatetime != null">
+                update_time=#{updatetime},
+            </if>
+            <if test="params != null">
+                params = #{params},
+            </if>
+            <if test="method != null and method != ''">
+                method = #{method}
+            </if>
+            <if test="beore != null">
+                before = #{before},
+            </if>
+            <if test="after != null">
+                after = #{after},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getCasesByIDs" resultMap="BaseResultMap">
+        select * from test_cases WHERE
+        <foreach collection="list" item="item" index="index" separator="or">
+            (id = #{item.caseid})
+        </foreach>
+    </select>
+
+    <select id="getOneCase" resultMap="BaseResultMap">
+        select * from test_cases where id = #{id}
+    </select>
+
+    <select id="getServiceCases" resultMap="BaseResultMap">
+        select * from test_cases where service_id = #{serviceid}
+    </select>
+
+
+</mapper>

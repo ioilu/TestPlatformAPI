@@ -1,0 +1,26 @@
+server:
+  port: 8091
+
+spring:
+  datasource:
+    username: ***
+    password: ***
+    url: jdbc:mysql://***:3306/***?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&autoReconnect=true
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.huilu.testplatform.entity
+
+#showSql
+logging:
+  level:
+    com:
+      huilu:
+        testplatform:
+          mapper: debug
+
+##该配置是用于初始化测试数据的
+mysql.username: ****
+mysql.password: ****
+mysql.url: jdbc:mysql://*****:3306/****

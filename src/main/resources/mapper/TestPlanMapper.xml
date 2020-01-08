@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huilu.testplatform.mapper.TestPlanMapper">
+
+    <resultMap id="BaseResultMap" type="com.huilu.testplatform.entity.dao.TestPlan">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="service_id" jdbcType="INTEGER" property="serviceid"/>
+        <result column="schedule" jdbcType="VARCHAR" property="schedule"/>
+        <result column="create_time" jdbcType="DATE" property="createtime"/>
+        <result column="update_time" jdbcType="DATE" property="updatetime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="plan_name" jdbcType="VARCHAR" property="planname"/>
+    </resultMap>
+
+    <update id="update" parameterType="com.huilu.testplatform.entity.dao.TestPlan">
+        update test_plan
+        <set>
+            <if test="schedule != null and schedule != ''">
+                schedule = #{schedule},
+            </if>
+            <if test="planname != null and planname != ''">
+                plan_name = #{planname},
+            </if>
+            <if test="status > 0">
+                status = #{status},
+            </if>
+            <if test="updatetime != null">
+                update_time=#{updatetime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getEnabledPlanByService" resultMap="BaseResultMap">
+            select * from test_plan where service_id = #{serviceid} and status = 1
+
+    </select>
+
+    <select id="getOnePlan" resultMap="BaseResultMap">
+        select * from test_plan where id = #{id}
+    </select>
+
+    <select id="getAllPlan" resultMap="BaseResultMap">
+        select * from test_plan
+    </select>
+
+
+</mapper>

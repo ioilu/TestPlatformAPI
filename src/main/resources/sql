@@ -1,0 +1,107 @@
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for account_info
+-- ----------------------------
+DROP TABLE IF EXISTS `account_info`;
+CREATE TABLE `account_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `account` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `real_name` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account` (`account`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for job
+-- ----------------------------
+DROP TABLE IF EXISTS `job`;
+CREATE TABLE `job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_name` varchar(255) NOT NULL COMMENT '作业名称',
+  `plan_id` int(11) NOT NULL,
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作业表';
+
+-- ----------------------------
+-- Table structure for job_log
+-- ----------------------------
+DROP TABLE IF EXISTS `job_log`;
+CREATE TABLE `job_log` (
+  `plan_id` int(11) NOT NULL,
+  `case_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1' COMMENT 'case执行状态',
+  `response` varchar(255) DEFAULT NULL COMMENT '调用接口返回值',
+  `job_id` int(11) NOT NULL COMMENT '关联的任务id',
+  `create_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='job执行日志表';
+
+-- ----------------------------
+-- Table structure for planned_cases
+-- ----------------------------
+DROP TABLE IF EXISTS `planned_cases`;
+CREATE TABLE `planned_cases` (
+  `plan_id` int(10) DEFAULT NULL,
+  `case_id` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='测试计划关联的用例';
+
+-- ----------------------------
+-- Table structure for servcie_management
+-- ----------------------------
+DROP TABLE IF EXISTS `servcie_management`;
+CREATE TABLE `servcie_management` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `host` varchar(30) NOT NULL,
+  `comment` varchar(100) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='服务管理';
+
+-- ----------------------------
+-- Table structure for test_cases
+-- ----------------------------
+DROP TABLE IF EXISTS `test_cases`;
+CREATE TABLE `test_cases` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_id` int(11) NOT NULL,
+  `api` varchar(100) NOT NULL,
+  `case_name` varchar(100) NOT NULL,
+  `headers` varchar(100) DEFAULT NULL,
+  `params` varchar(500) DEFAULT NULL,
+  `method` varchar(10) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用例管理';
+
+-- ----------------------------
+-- Table structure for test_plan
+-- ----------------------------
+DROP TABLE IF EXISTS `test_plan`;
+CREATE TABLE `test_plan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_id` int(11) NOT NULL,
+  `schedule` varchar(30) NOT NULL,
+  `plan_name` varchar(50) NOT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='测试计划管理';
+
+-- ----------------------------
+-- Procedure structure for test
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `test`;
+DELIMITER ;;
+
+;;
+DELIMITER ;
